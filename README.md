@@ -1,0 +1,1 @@
+Aplicação TeachersRoom, plataforma de ensino para Professores e Alunos.
