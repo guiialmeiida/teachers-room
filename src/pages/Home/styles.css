@@ -1,17 +1,13 @@
-.home-container {
-    width: 100%;
-    max-width: 1180px;
-    padding: 0 30px;
-    margin: 32px auto;
+
+.background {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 1000px;
 }
 
 .home-container header {
     display: flex;
     align-items: center;
-}
-
-.home-container header img {
-    height: 64px;
 }
 
 .home-container .button {
@@ -38,13 +34,10 @@
 
 .home-container .button-register {
     width: 130px;
-    height: 40px;
     background: #e02041;
-    border: 0;
     border-radius: 8px;
     color: #FFF;
-    font-weight: 100;
-    margin-top: 400px;
+    margin-top: 550px;
     display: inline-block;
     text-align: center;
     text-decoration: none;
@@ -56,5 +49,9 @@
 
 .home-container .button-register:hover {
     filter: brightness(90%);
+}
+
+.home-container h1 {
+    margin-left: 300px;
 }
 
