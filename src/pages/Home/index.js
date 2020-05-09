@@ -1,23 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
-import './styles.css';
+import { makeStyles } from '@material-ui/core/styles';
+import Menu from '../../components/menu';
 
 import fundoImg from '../../assets/home.jpg';
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    background: {
+        backgroundSize: 'cover',
+        backgroundImage: `url(${fundoImg})`,
+        position: 'fixed',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100%',
+        minWidth: '100%',
+        backgroundPosition: 'center',
+    },
+  }));
+
+
+
 export default function Home() {
+    const classes = useStyles()
 
     return (
-        <div className="home-container">
-            <header>
-                <Link className="button" to="/">Home</Link>
-                <Link className="button" to="/login">Entrar</Link>
-                <Link className="button" to="/about">Sobre nós</Link>
-            </header>
-
-            <div className="background" style={{ backgroundImage:`url(${fundoImg})` }}>
-
+        <div className={classes.background} >
+        <Menu />
         </div>
-    </div>
     );
 }
