@@ -1,16 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+
+import api from '../../service/api';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,6 +38,35 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
   const classes = useStyles();
 
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [emailAdress, setEmailAdress] = useState('');
+    const [password, setPassword] = useState('');
+    const [typeUser, setTypeUser] = useState('');
+
+    const history = useHistory();
+
+    async function handleNewUser(e) {
+      e.preventDefault();
+
+      const data = {
+          firstName,
+          lastName,
+          emailAdress,
+          password,
+          typeUser
+      };
+
+      try {
+          
+          await api.post('/users', data)
+
+          history.push('/login');
+      } catch (e) {
+          alert('Erro ao cadastar usuário, tente novamente.');
+      }
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -44,7 +76,7 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleNewUser}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -56,6 +88,8 @@ export default function Register() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={firstName}
+                onChange={e => setFirstName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -67,6 +101,8 @@ export default function Register() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={lastName}
+                onChange={e => setLastName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -78,6 +114,8 @@ export default function Register() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={emailAdress}
+                onChange={e => setEmailAdress(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -90,8 +128,28 @@ export default function Register() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
               />
             </Grid>
+            <Grid item >
+            <RadioGroup row aria-label="position" name="position" defaultValue="top">
+              <FormControlLabel
+                value="professor"
+                control={<Radio color="primary" />}
+                label="Professor"
+                labelPlacement="Professor"
+                onChange={e => setTypeUser(e.target.value)}
+              />
+              <FormControlLabel
+                value="aluno"
+                control={<Radio color="primary" />}
+                label="Aluno"
+                labelPlacement="Aluno"
+                onChange={e => setTypeUser(e.target.value)}
+              />
+              </RadioGroup>
+          </Grid>
           </Grid>
           <Button
             type="submit"
@@ -100,7 +158,7 @@ export default function Register() {
             color="primary"
             className={classes.submit}
           >
-            Entrar
+            Registrar
           </Button>
           <Grid container justify="flex-end">
             <Grid item>

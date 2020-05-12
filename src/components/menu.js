@@ -28,11 +28,6 @@ export default function Menu() {
                         Entrar
                     </Button>
                 </Box>
-                <Box p={1}>
-                    <Button variant="contained" color="primary" href="/about">
-                        Sobre nós
-                    </Button>
-                </Box>
             </Box>
         </div>
 

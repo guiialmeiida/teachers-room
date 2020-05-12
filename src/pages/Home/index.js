@@ -2,14 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Menu from '../../components/menu';
 
-import fundoImg from '../../assets/home.jpg';
+import fundoImg from '../../assets/about.jpg';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-      },
-    },
     background: {
         backgroundSize: 'cover',
         backgroundImage: `url(${fundoImg})`,
