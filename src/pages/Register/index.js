@@ -40,7 +40,7 @@ export default function Register() {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [emailAdress, setEmailAdress] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [typeUser, setTypeUser] = useState('');
 
@@ -52,16 +52,19 @@ export default function Register() {
       const data = {
           firstName,
           lastName,
-          emailAdress,
+          emailAddress,
           password,
           typeUser
       };
 
       try {
-          
+          console.log(data.firstName, data.lastName, data.password, data.typeUser, data.emailAddress);
           await api.post('/users', data)
 
+          alert('Usuário cadastrado com sucesso.');
+
           history.push('/login');
+
       } catch (e) {
           alert('Erro ao cadastar usuário, tente novamente.');
       }
@@ -114,8 +117,8 @@ export default function Register() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                value={emailAdress}
-                onChange={e => setEmailAdress(e.target.value)}
+                value={emailAddress}
+                onChange={e => setEmailAddress(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
