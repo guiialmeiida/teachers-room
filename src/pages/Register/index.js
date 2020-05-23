@@ -12,7 +12,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-
 import api from '../../service/api';
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +58,7 @@ export default function Register() {
 
       try {
           console.log(data.firstName, data.lastName, data.password, data.typeUser, data.emailAddress);
-          await api.post('/users', data)
+          await api.post('/auth/register', data)
 
           alert('Usuário cadastrado com sucesso.');
 

@@ -1,16 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import api from '../../service/api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +45,40 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
   const classes = useStyles();
 
+  const [emailAddress, setEmailAddress] = useState('');
+  const [password, setPassword] = useState('');
+
+  const history = useHistory();
+
+  async function handleLogin(e) {
+    e.preventDefault();
+
+    const data = {
+        emailAddress,
+        password,
+    };
+
+    try {
+        const returnAuth = await api.post('/auth/authenticate', data);
+        
+        const user = returnAuth.data.user;
+        const userName = `${user.firstName} ${user.lastName}`;
+        
+        const [authToken, typeUser] = [returnAuth.data.token, user.typeUser]
+
+        sessionStorage.setItem('@teachers_room/token', authToken);
+        sessionStorage.setItem('@teachers_room/userName', userName);
+        sessionStorage.setItem('@teachers_room/typeUser', typeUser);
+
+        alert('Login realizado com sucesso.');
+
+        history.push('/home');
+
+    } catch (e) {
+        alert('Erro no login, tente novamente.');
+    }
+}
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -57,7 +90,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleLogin}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -68,6 +101,8 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={emailAddress}
+              onChange={e => setEmailAddress(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -79,10 +114,8 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
             <Button
               type="submit"
