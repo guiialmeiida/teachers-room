@@ -63,16 +63,17 @@ export default function SignInSide() {
         
         const user = returnAuth.data.user;
         const userName = `${user.firstName} ${user.lastName}`;
-        
         const [authToken, typeUser] = [returnAuth.data.token, user.typeUser]
-
+        
         sessionStorage.setItem('@teachers_room/token', authToken);
-        sessionStorage.setItem('@teachers_room/userName', userName);
         sessionStorage.setItem('@teachers_room/typeUser', typeUser);
+        sessionStorage.setItem('@teachers_room/userName', userName);
 
-        alert('Login realizado com sucesso.');
-
-        history.push('/home');
+        if (user.typeUser === 'professor') {
+          history.push('/homeTeacher')
+        } else {
+          history.push('/homeStudent');
+        }
 
     } catch (e) {
         alert('Erro no login, tente novamente.');
