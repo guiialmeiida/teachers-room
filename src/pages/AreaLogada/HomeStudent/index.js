@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import MenuStudent from '../../../components/menuStudent';
 
 export default function HomeStudent() {
 
@@ -9,13 +10,7 @@ export default function HomeStudent() {
 
     return (
         <Grid container component="main">
-            <Box display="flex" justifyContent="flex-end" p={1} m={1} bgcolor="background.paper">
-                <Box>
-                    Olá {userName} 
-
-                    TELA DO ESTUDANTE
-                </Box>
-            </Box>
+            <MenuStudent />
         </Grid>
     );
 }

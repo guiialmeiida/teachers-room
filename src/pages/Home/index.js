@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Menu from '../../components/menu';
+import Header from '../../components/header';
 
 import fundoImg from '../../assets/about.jpg';
 
@@ -23,7 +23,7 @@ export default function Home() {
 
     return (
         <div className={classes.background} >
-        <Menu />
+        <Header />
         </div>
     );
 }

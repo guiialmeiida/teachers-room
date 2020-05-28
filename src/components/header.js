@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function Menu() {
+export default function Header() {
     const classes = useStyles()
     
     return (
