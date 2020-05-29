@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,7 +10,6 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
 import ReportIcon from '@material-ui/icons/Report';
-import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,34 +67,34 @@ export default function MenuTeacher() {
           Teachers Room
       </div>
       <div className={classes.user}>
-          Olá {userName}
+          Olá Guilherme Almeida
       </div>
     </div>
-    <List className={classes.menu} component="nav" aria-label="main mailbox folders">
+    <List className={classes.menu} component='nav' aria-label='main mailbox folders'>
       <div className={classes.itensMenu}>
-      <ListItem button>
+      <ListItem button component={Link} to='/homeTeacher'>
         <ListItemIcon>
           <SchoolIcon />
         </ListItemIcon>
-        <ListItemText primary="Aulas" />
+        <ListItemText primary='Aulas' />
       </ListItem>
-      <ListItem button>
+      <ListItem button component={Link} to='/teacherActivities' >
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary="Atividades" />
+        <ListItemText primary='Atividades' />
       </ListItem>
-      <ListItem button>
+      <ListItem button component={Link} to='/classes'>
         <ListItemIcon>
           <SupervisorAccountIcon />
         </ListItemIcon>
-        <ListItemText primary="Turmas" />
+        <ListItemText primary='Turmas' />
       </ListItem>
       <ListItem button onClick={notes}>
         <ListItemIcon>
           <LibraryAddCheckIcon />
         </ListItemIcon>
-        <ListItemText primary="Notas" />
+        <ListItemText primary='Notas' />
         <ListItemIcon>
           <ReportIcon />
         </ListItemIcon>
