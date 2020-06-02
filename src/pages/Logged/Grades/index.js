@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
       position: 'fixed',
     },
     background: {
-      backgroundColor: '#7FFFD4',
+      backgroundColor: '#669dd0',
       marginTop: '45px',
       height: '120px',
       width: '100%',
@@ -37,7 +37,7 @@ export default function HomeStudent() {
             <MenuStudent />
             <Box className={classes.background}>
                 <Box className={classes.title}>
-                    Atividades
+                    Notas
                 </Box>
             </Box>
         </Grid>

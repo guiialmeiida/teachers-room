@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     position: 'fixed',
     left: '0px',
-    top: '55px',
+    top: '47px',
   },
   header: {
     height: '45px',
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Andale Mono, monospace',
     fontSize: '25px',
     marginLeft: '35px',
-    marginTop: '4px',
+    marginTop: '7px',
   },
   user: {
     display: 'flex',
@@ -51,6 +52,10 @@ export default function MenuStudent() {
 
   const classes = useStyles();
 
+  useEffect(() => {
+    document.getElementsByTagName('body')[0].style = "margin:0px"
+  }, );
+
   return (
     <div className={classes.root}>
     <div className={classes.header}>
@@ -63,13 +68,13 @@ export default function MenuStudent() {
     </div>
     <List className={classes.menu} component="nav" aria-label="main mailbox folders">
       <div className={classes.itensMenu}>
-      <ListItem button>
+      <ListItem button component={Link} to='/homeStudent'>
         <ListItemIcon>
           <SchoolIcon />
         </ListItemIcon>
         <ListItemText primary="Aulas" />
       </ListItem>
-      <ListItem button>
+      <ListItem button component={Link} to='/grades'>
         <ListItemIcon>
           <LibraryAddCheckIcon />
         </ListItemIcon>
