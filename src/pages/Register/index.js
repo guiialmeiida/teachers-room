@@ -57,7 +57,6 @@ export default function Register() {
       };
 
       try {
-          console.log(data.firstName, data.lastName, data.password, data.typeUser, data.emailAddress);
           await api.post('/auth/register', data)
 
           alert('Usuário cadastrado com sucesso.');

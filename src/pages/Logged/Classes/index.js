@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
     class: {
-        marginTop: '80px',
+        marginTop: '-300px',
         marginLeft: '80%',
     }
   }));
@@ -24,7 +24,7 @@ export default function Classes() {
             <MenuTeacher />
             <Box>
                 <Box >
-                    <Button variant="contained" color="primary" href="/" className={classes.class}>
+                    <Button variant="contained" color="primary" href="/newClass" className={classes.class}>
                         Criar turma
                     </Button>  
                 </Box>

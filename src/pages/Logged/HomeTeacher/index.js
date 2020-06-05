@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
     class: {
-        marginTop: '80px',
+        marginTop: '-300px',
         marginLeft: '80%',
     }
   }));
