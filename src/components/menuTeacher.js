@@ -75,12 +75,6 @@ export default function MenuTeacher() {
     </div>
     <List className={classes.menu} component='nav' aria-label='main mailbox folders'>
       <div className={classes.itensMenu}>
-      <ListItem button component={Link} to='/homeTeacher'>
-        <ListItemIcon>
-          <SchoolIcon />
-        </ListItemIcon>
-        <ListItemText primary='Aulas' />
-      </ListItem>
       <ListItem button component={Link} to='/teacherActivities' >
         <ListItemIcon>
           <AssignmentIcon />

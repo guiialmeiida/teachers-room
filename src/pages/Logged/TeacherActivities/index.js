@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     painels: {
       marginBottom: '20px'
     },
-    teste: {
+    delete: {
       marginLeft: '600px',
       position: 'absolute'
     }
@@ -57,18 +57,29 @@ export default function TeacherActivities() {
     const classes = useStyles();
 
     const [listActivities, setListActivities] = useState([]);
-    const [expanded, setExpanded] = React.useState(false);
-
+    const [_id, set_id] = useState('');
+    
     useEffect(() => {
-        api.get('/class/listClass').then(response => {
+        api.get('/class/listActivities').then(response => {
 
           setListActivities(response.data);
         });
     }, []);
 
-    const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+    async function handleDelete(e) {
+      e.preventDefault();
+
+      const data = { _id };
+      console.log(data);
+      try {
+          await api.post('/class/deleteActivitie', data)
+
+          alert('Atividade deletada com sucesso.');
+
+      } catch (e) {
+          alert('Erro ao deletar atividade, tente novamente.');
+      }
+  }
 
     return (
         <Grid container component="main" className={classes.root}>
@@ -78,22 +89,18 @@ export default function TeacherActivities() {
                 </Button>
             
             <Box className={classes.card}>
-            {listActivities.map(activity => (
-              <ExpansionPanel expanded={expanded === 'panel4'} onChange={handleChange('panel4')} key={activity.id} className={classes.painels}>
-                <ExpansionPanelSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <Typography className={classes.heading}>{activity.name}</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <Typography>
-                    {activity.description}
-                  </Typography>
-                  <DeleteIcon  className={classes.teste} />
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
+              {listActivities.map(activity => (
+                <ExpansionPanel className={classes.painels} key={activity._id} onChange={e => set_id(activity._id)}>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography className={classes.heading}>{activity.name}</Typography>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                    <Typography>
+                        {activity.description}
+                    </Typography>
+                    <DeleteIcon  className={classes.delete} onClick={handleDelete} />
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
             ))}
             </Box>
         </Grid>

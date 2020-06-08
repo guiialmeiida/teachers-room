@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -32,6 +32,16 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  selectBox: {
+    marginLeft: '140px',
+    height: '30px'
+  },
+  student: {
+    fontSize: '18px',
+    marginTop: '10px',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontWeight: '400',
+  }
 }));
 
 export default function Register() {
@@ -42,8 +52,17 @@ export default function Register() {
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [typeUser, setTypeUser] = useState('');
+    const [studentClass, setStudentClass] = useState('');
+    const [listClasses, setListClasses] = useState([]);
 
     const history = useHistory();
+
+    useEffect(() => {
+      api.get('/class/listClass').then(response => {
+
+        setListClasses(response.data);
+       });
+      }, []);
 
     async function handleNewUser(e) {
       e.preventDefault();
@@ -53,7 +72,8 @@ export default function Register() {
           lastName,
           emailAddress,
           password,
-          typeUser
+          typeUser,
+          studentClass
       };
 
       try {
@@ -150,6 +170,20 @@ export default function Register() {
                 onChange={e => setTypeUser(e.target.value)}
               />
               </RadioGroup>
+              <Box className={classes.student}> 
+              Se for aluno
+              <select className={classes.selectBox} onClick={e => setStudentClass(e.target.value)}>
+              <option value=" ">Selecione uma turma</option>
+                {listClasses.map(list => (
+                  <option 
+                    value={list.nTurma} 
+                    key={list.nTurma}
+                    >  
+                      {list.nTurma}
+                    </option>
+                ))}
+               </select>
+               </Box>
           </Grid>
           </Grid>
           <Button

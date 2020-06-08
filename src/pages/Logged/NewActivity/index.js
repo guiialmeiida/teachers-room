@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -60,9 +60,17 @@ export default function NewActivity() {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [team, setTeam] = useState('');
+    const [studentClass, setStudentClass] = useState('');
+    const [listClasses, setListClasses] = useState([]);
 
     const history = useHistory();
+
+    useEffect(() => {
+      api.get('/class/listClass').then(response => {
+
+        setListClasses(response.data);
+       });
+      }, []);
 
     async function handleNewActivity(e) {
       e.preventDefault();
@@ -70,12 +78,11 @@ export default function NewActivity() {
       const data = {
           name,
           description,
-          team
+          studentClass
       };
 
       try {
-          console.log(data.name, data.description, data.team);
-          await api.post('/class/createClass', data)
+          await api.post('/class/createActivitie', data)
 
           alert('Atividade cadastrada com sucesso.');
 
@@ -123,12 +130,17 @@ export default function NewActivity() {
                       />
                     </Box>
                     <Box>
-                        <select className={classes.selectBox} onChange={e => setTeam(e.target.value)}>
-                            <option value="2">Selecione uma turma</option>
-                            <option value="1">turma 1</option>
-                            <option value="5">turma 2</option>
-                        </select>
-
+                    <select className={classes.selectBox} onClick={e => setStudentClass(e.target.value)}>
+                        <option value=" ">Selecione uma turma</option>
+                          {listClasses.map(list => (
+                            <option 
+                              value={list.nTurma} 
+                              key={list.nTurma}
+                              >  
+                                {list.nTurma}
+                              </option>
+                          ))}
+                    </select>
                         <Button variant="contained" color="primary" type="submit" className={classes.createButton}>
                           Criar atividade
                         </Button> 

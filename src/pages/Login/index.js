@@ -63,14 +63,15 @@ export default function SignInSide() {
         
         const user = returnAuth.data.user;
         const userName = `${user.firstName} ${user.lastName}`;
-        const [authToken, typeUser] = [returnAuth.data.token, user.typeUser]
+        const [authToken, typeUser, studentClass] = [returnAuth.data.token, user.typeUser, user.studentClass];
         
         sessionStorage.setItem('@teachers_room/token', authToken);
         sessionStorage.setItem('@teachers_room/typeUser', typeUser);
         sessionStorage.setItem('@teachers_room/userName', userName);
+        sessionStorage.setItem('@teachers_room/studentClass', studentClass);
 
         if (user.typeUser === 'professor') {
-          history.push('/homeTeacher')
+          history.push('/teacherActivities')
         } else {
           history.push('/homeStudent');
         }
