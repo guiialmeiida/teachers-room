@@ -8,7 +8,6 @@ import HomeStudent from './pages/Logged/HomeStudent';
 import TeacherActivities from './pages/Logged/TeacherActivities';
 import Classes from './pages/Logged/Classes';
 import NewActivity from './pages/Logged/NewActivity';
-import Grades from './pages/Logged/Grades';
 
 export default function Routes() {
     return (
@@ -21,7 +20,6 @@ export default function Routes() {
                 <Route path="/teacherActivities" exact component={TeacherActivities} />
                 <Route path="/classes" exact component={Classes} />
                 <Route path="/newActivity" exact component={NewActivity} />
-                <Route path="/grades" exact component={Grades} />
             </Switch>
         </BrowserRouter>
     );

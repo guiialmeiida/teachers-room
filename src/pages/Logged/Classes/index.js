@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -55,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
       delete: {
         marginLeft: '600px',
         position: 'absolute'
+      },
+      maginName: {
+          marginRight: '10px'
       }
   }));
 
@@ -65,20 +69,24 @@ export default function Classes() {
     const [nTurma, setNTurma] = useState('');
     const [users, setUsers] = useState([]);
     const [_id, set_id] = useState('');
-    
+
     const classes = useStyles();
+    const history = useHistory();
+
+    const authToken = sessionStorage.getItem('@teachers_room/token');
+
+    useEffect(() => {
+        if(!authToken) {
+          alert('Falha na autenticação, realize o login para continuar.')
+  
+          history.push('/');
+        }
+      });
 
     useEffect(() => {
         api.get('/class/listClass').then(response => {
 
         setListClasses(response.data);
-        });
-    }, []);
-
-    useEffect(() => {
-        api.get('/users/listUsers').then(response => {
-
-        setUsers(response.data);
         });
     }, []);
 
@@ -111,7 +119,7 @@ export default function Classes() {
         e.preventDefault();
   
         const data = { _id };
-        console.log(data);
+
         try {
             await api.post('/class/deleteClass', data)
   
@@ -119,6 +127,19 @@ export default function Classes() {
   
         } catch (e) {
             alert('Erro ao deletar turma, tente novamente.');
+        }
+    }
+
+    async function handleStudents(nTurma) {
+
+        try {
+
+            await api.get(`/users/listUsers/${nTurma}`).then(response => {
+
+               setUsers(response.data);
+            });
+        } catch (e) {
+            console.log('Falha ao buscar usuários pela turma', e);
         }
     }
 
@@ -158,14 +179,21 @@ export default function Classes() {
             
             <Box className={classes.card}>
             {listClasses.map(list => (
-                <ExpansionPanel className={classes.painels} key={list.id} onChange={e => set_id(list._id)} >
+                <ExpansionPanel 
+                    className={classes.painels} 
+                    key={list.id} 
+                    onClick={() => handleStudents(list.nTurma)}
+                    onChange={e => set_id(list._id)}
+                    >
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading}>{list.nTurma}</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                    <Typography>
-                        teste2
-                    </Typography>
+                    {users.map(user => (
+                        <Typography className={classes.maginName} >
+                            {user.firstName} {user.lastName},
+                        </Typography>
+                    ))}
                     <DeleteIcon  className={classes.delete} onClick={handleDelete} />
                     </ExpansionPanelDetails>
                 </ExpansionPanel>

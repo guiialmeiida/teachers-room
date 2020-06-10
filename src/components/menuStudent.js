@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -7,6 +7,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SchoolIcon from '@material-ui/icons/School';
 import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
+import ReportIcon from '@material-ui/icons/Report';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
   },
   itensMenu: {
     marginLeft: '20px',
+  },
+  exit: {
+    marginLeft: '80px'
   }
 }));
 
@@ -51,10 +56,26 @@ const userName = sessionStorage.getItem('@teachers_room/userName');
 export default function MenuStudent() {
 
   const classes = useStyles();
+  const history = useHistory();
 
   useEffect(() => {
     document.getElementsByTagName('body')[0].style = "margin:0px"
   }, );
+
+  function handleLogout(e) {
+    e.preventDefault();
+
+    sessionStorage.removeItem('@teachers_room/studentClass');
+    sessionStorage.removeItem('@teachers_room/email');
+    sessionStorage.removeItem('@teachers_room/token');
+    sessionStorage.removeItem('@teachers_room/userName');
+    
+    history.push('/');
+  }
+
+  function notes(e) {
+    alert('Funcionalidade ainda não disponível!');
+  }
 
   return (
     <div className={classes.root}>
@@ -64,6 +85,7 @@ export default function MenuStudent() {
       </div>
       <div className={classes.user}>
           Olá {userName}
+        <MeetingRoomIcon className={classes.exit} onClick={handleLogout} />
       </div>
     </div>
     <List className={classes.menu} component="nav" aria-label="main mailbox folders">
@@ -74,11 +96,14 @@ export default function MenuStudent() {
         </ListItemIcon>
         <ListItemText primary="Aulas" />
       </ListItem>
-      <ListItem button component={Link} to='/grades'>
+      <ListItem button onClick={notes}>
         <ListItemIcon>
           <LibraryAddCheckIcon />
         </ListItemIcon>
         <ListItemText primary="Notas" />
+        <ListItemIcon>
+        <ReportIcon />
+        </ListItemIcon>
       </ListItem>
       </div>
     </List>

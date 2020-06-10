@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -55,9 +56,20 @@ const useStyles = makeStyles((theme) => ({
 export default function TeacherActivities() {
 
     const classes = useStyles();
+    const history = useHistory();
 
     const [listActivities, setListActivities] = useState([]);
     const [_id, set_id] = useState('');
+    
+    const authToken = sessionStorage.getItem('@teachers_room/token');
+
+    useEffect(() => {
+      if(!authToken) {
+        alert('Falha na autenticação, realize o login para continuar.')
+
+        history.push('/');
+      }
+    });
     
     useEffect(() => {
         api.get('/class/listActivities').then(response => {

@@ -29,14 +29,12 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
     form: {
-      marginTop: '-50px',
+      marginTop: '50px',
       marginLeft: '500px',
-      marginBottom: '100px'
     },
     newActivity: {
       fontFamily: 'Andale Mono, monospace',
       fontSize: '25px',
-      marginBottom: '5px',
     },
     styleText: {
       width: '500px',

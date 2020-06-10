@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import SchoolIcon from '@material-ui/icons/School';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
 import ReportIcon from '@material-ui/icons/Report';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,13 +39,16 @@ const useStyles = makeStyles((theme) => ({
   user: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginRight: '50px',
+    marginRight: '60px',
     marginTop: '-25px',
     fontFamily: 'Andale Mono, monospace',
     fontSize: '22px',
   },
   itensMenu: {
     marginLeft: '20px',
+  },
+  exit: {
+    marginLeft: '80px'
   }
 }));
 
@@ -58,10 +61,22 @@ export default function MenuTeacher() {
   }
 
   const classes = useStyles();
+  const history = useHistory();
 
   useEffect(() => {
     document.getElementsByTagName('body')[0].style = "margin:0px"
   }, );
+
+  function handleLogout(e) {
+    e.preventDefault();
+
+    sessionStorage.removeItem('@teachers_room/studentClass');
+    sessionStorage.removeItem('@teachers_room/typeUser');
+    sessionStorage.removeItem('@teachers_room/token');
+    sessionStorage.removeItem('@teachers_room/userName');
+    
+    history.push('/');
+  }
 
   return (
     <div className={classes.root}>
@@ -71,6 +86,7 @@ export default function MenuTeacher() {
       </div>
       <div className={classes.user}>
           Olá {userName}
+      <MeetingRoomIcon className={classes.exit} onClick={handleLogout} />
       </div>
     </div>
     <List className={classes.menu} component='nav' aria-label='main mailbox folders'>
