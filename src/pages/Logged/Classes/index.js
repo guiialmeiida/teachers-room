@@ -109,6 +109,7 @@ export default function Classes() {
   
             alert('Turma cadastrada com sucesso.');
             setOpen(false);
+            window.location.reload();
   
         } catch (e) {
             alert('Erro ao cadastar turma, tente novamente.');
@@ -124,6 +125,7 @@ export default function Classes() {
             await api.post('/class/deleteClass', data)
   
             alert('Turma deletada com sucesso.');
+            window.location.reload();
   
         } catch (e) {
             alert('Erro ao deletar turma, tente novamente.');

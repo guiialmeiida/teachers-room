@@ -87,6 +87,7 @@ export default function TeacherActivities() {
           await api.post('/class/deleteActivitie', data)
 
           alert('Atividade deletada com sucesso.');
+          window.location.reload();
 
       } catch (e) {
           alert('Erro ao deletar atividade, tente novamente.');

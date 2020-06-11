@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
@@ -73,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
 export default function HomeStudent() {
 
     const authToken = sessionStorage.getItem('@teachers_room/token');
-    const studentClass = sessionStorage.getItem('@teachers_room/studentClass');
 
     const classes = useStyles();
     const history = useHistory();
@@ -83,6 +82,7 @@ export default function HomeStudent() {
     const [open, setOpen] = useState(false);
     const [idList, setIdList] = useState([]);
     const [responsePlace, setResponsePlace] = useState([]);
+    const [reloadPage, setReloadPage] = useState(false);
 
     useEffect(() => {
       if(!authToken) {
@@ -93,12 +93,23 @@ export default function HomeStudent() {
     });
 
     useEffect(() => {
+      if(reloadPage === false) {
+        console.log(`Valor do reloadPage ${reloadPage}`)
+        window.location.reload();
+        setReloadPage(true);
+        console.log(`Valor ${reloadPage}`)
+      }
+    }, []);
+
+    useEffect(() => {
+      const studentClass = sessionStorage.getItem('@teachers_room/studentClass');
+
         const data = { studentClass };
         api.post('/class/filteredActivitie', data).then(response => {
 
           setListActivities(response.data);
         });
-    });
+    }, []);
 
     useEffect(() => {
       const getResponse = localStorage.getItem(idList);
@@ -109,17 +120,17 @@ export default function HomeStudent() {
 
     });
 
-    const handleOpen = () => {
+    const handleOpen = (activity) => {
       setOpen(true);
+
+      setResponsePlace(localStorage.getItem(activity));
   };
 
     const handleClose = () => {
       setOpen(false);
   };
 
-    function saveResponse(e) {
-      /* console.log(`A resposta armazenada foi ${response}`)
-      console.log(`O id da resposta armazeda é ${idList}`) */
+    function saveResponse() {
       localStorage.setItem(idList, response);
 
     }
@@ -143,7 +154,7 @@ export default function HomeStudent() {
                     <Typography>
                         {activity.description}
                     </Typography>
-                    <EventNoteIcon className={classes.response} onClick={handleOpen}/>
+                    <EventNoteIcon className={classes.response} onClick={() => handleOpen(activity.name)}/>
                     <Modal
                           aria-labelledby="transition-modal-title"
                           aria-describedby="transition-modal-description"
@@ -168,10 +179,15 @@ export default function HomeStudent() {
                                       className={classes.textModal} 
                                       onChange={e => setResponse(e.target.value)}
                                   >
-                                  {response}
+                                  {responsePlace}
                                   </TextareaAutosize>
                             </Box>
-                                  <Button variant="contained" color="primary" type="submit" className={classes.saveButton} onClick={saveResponse} >
+                                  <Button 
+                                    variant="contained" 
+                                    color="primary" 
+                                    type="submit" 
+                                    className={classes.saveButton} 
+                                    onClick={() => saveResponse()}>
                                     Salvar resposta
                                 </Button> 
                           </div>
