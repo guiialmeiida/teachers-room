@@ -82,7 +82,6 @@ export default function HomeStudent() {
     const [open, setOpen] = useState(false);
     const [idList, setIdList] = useState([]);
     const [responsePlace, setResponsePlace] = useState([]);
-    const [reloadPage, setReloadPage] = useState(false);
 
     useEffect(() => {
       if(!authToken) {
