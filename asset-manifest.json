@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.js": "/teachersroom/static/js/main.b82f0d6e.chunk.js",
+    "main.js.map": "/teachersroom/static/js/main.b82f0d6e.chunk.js.map",
+    "runtime-main.js": "/teachersroom/static/js/runtime-main.13fbd1aa.js",
+    "runtime-main.js.map": "/teachersroom/static/js/runtime-main.13fbd1aa.js.map",
+    "static/js/2.d6fc4cae.chunk.js": "/teachersroom/static/js/2.d6fc4cae.chunk.js",
+    "static/js/2.d6fc4cae.chunk.js.map": "/teachersroom/static/js/2.d6fc4cae.chunk.js.map",
+    "index.html": "/teachersroom/index.html",
+    "precache-manifest.b9452ee3aa792bb8cfd75a3729171598.js": "/teachersroom/precache-manifest.b9452ee3aa792bb8cfd75a3729171598.js",
+    "service-worker.js": "/teachersroom/service-worker.js",
+    "static/js/2.d6fc4cae.chunk.js.LICENSE.txt": "/teachersroom/static/js/2.d6fc4cae.chunk.js.LICENSE.txt",
+    "static/media/about.jpg": "/teachersroom/static/media/about.2e46ccef.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.13fbd1aa.js",
+    "static/js/2.d6fc4cae.chunk.js",
+    "static/js/main.b82f0d6e.chunk.js"
+  ]
+}
