@@ -51,10 +51,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const userName = sessionStorage.getItem('@teachers_room/userName');
 
 export default function MenuStudent() {
-
+  
+  const userName = sessionStorage.getItem('@teachers_room/userName');
+  
   const classes = useStyles();
   const history = useHistory();
 

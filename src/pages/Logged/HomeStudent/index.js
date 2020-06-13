@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
@@ -91,15 +91,6 @@ export default function HomeStudent() {
         history.push('/');
       }
     });
-
-    useEffect(() => {
-      if(reloadPage === false) {
-        console.log(`Valor do reloadPage ${reloadPage}`)
-        window.location.reload();
-        setReloadPage(true);
-        console.log(`Valor ${reloadPage}`)
-      }
-    }, []);
 
     useEffect(() => {
       const studentClass = sessionStorage.getItem('@teachers_room/studentClass');
